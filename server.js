@@ -20,8 +20,8 @@ app.get('/', function (req, res) {
 });
 
 app.get('/api/whoami', function (req, res) {
-  // const ipaddress = req.connection.remoteAddress;
-  const ipaddress = req.headers['sec-fetch-user'];
+  const ipaddress =
+    req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   const language = req.headers['accept-language'];
   const software = req.headers['user-agent'];
   console.log(`
@@ -32,7 +32,8 @@ app.get('/api/whoami', function (req, res) {
   res.json({ ipaddress, language, software });
 });
 
+const port = process.env.PORT || 3000;
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
+var listener = app.listen(port, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
