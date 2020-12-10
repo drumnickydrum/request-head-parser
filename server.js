@@ -20,10 +20,16 @@ app.get('/', function (req, res) {
 });
 
 app.get('/api/whoami', function (req, res) {
+  const r = require('ua-parser');
+  const ua = r.parse(req.headers['user-agent']);
+  console.log(ua);
   const ipaddress =
     req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-  const language = req.headers['accept-language'];
-  const software = req.headers['user-agent'];
+  if (ipaddress.substr(0, 7) === '::ffff:') {
+    ipaddress = ipaddress.substr(7);
+  }
+  const language = req.headers['accept-language'].split(',')[0];
+  const software = ua.os.toString();
   console.log(`
   ${ipaddress}
   ${language}

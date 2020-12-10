@@ -9,7 +9,8 @@
 	"dependencies": {
 		"body-parser": "^1.19.0",
 		"cors": "^2.8.1",
-		"express": "^5.0.0-alpha.2"
+		"express": "^5.0.0-alpha.2",
+		"ua-parser": "^0.3.5"
 	},
 	"engines": {
 		"node": "4.4.5"
